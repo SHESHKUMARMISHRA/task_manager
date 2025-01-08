@@ -24,6 +24,17 @@ class TaskController extends Controller
         return view('tasks.index', compact('tasks'));
     }
 
+
+    /**
+     * Show the form for creating a new task.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('tasks.create'); // Ensure you have a Blade view file at resources/views/tasks/create.blade.php
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -38,7 +49,9 @@ class TaskController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('tasks.index');
+        // Redirect to the task list with a success message
+        return redirect()->route('tasks.index')->with('success', 'Task created successfully.');
+        
     }
 
     public function updateStatus(Task $task, Request $request)

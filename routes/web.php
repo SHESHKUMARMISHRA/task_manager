@@ -18,6 +18,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::resource('tasks', TaskController::class)->except(['show']);
     Route::patch('tasks/{task}/status', [TaskController::class, 'updateStatus'])->name('tasks.updateStatus');
+    Route::get('/tasks/create', [TaskController::class, 'create'])->name('tasks.create');
+
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('admin-dashboard', function () {
+        // Admin panel
+    });
 });
 
 require __DIR__.'/auth.php';
